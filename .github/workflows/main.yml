@@ -1,0 +1,32 @@
+name: Run Java Git Diff By Local
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cherckout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+
+      - name: Run Java code
+        run: |
+          cd ai-code-review-sdk/src/main/java
+          javac com/jasper/sdk/AiCodeReview.java
+          java com.jasper.sdk.AiCodeReview
+
+      
