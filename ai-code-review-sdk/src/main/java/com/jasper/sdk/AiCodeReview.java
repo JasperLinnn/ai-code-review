@@ -1,6 +1,6 @@
 package com.jasper.sdk;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.jasper.sdk.domain.model.ApiResponse;
 import com.jasper.sdk.domain.model.ChatRequest;
 import lombok.extern.slf4j.Slf4j;
