@@ -1,6 +1,7 @@
 package com.jasper.sdk.test;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -14,6 +15,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ApiTest {
     public static void main(String[] args) {
+
+    }
+
+    @Test
+    public void test() {
+        // 访问 url
 
     }
 }
