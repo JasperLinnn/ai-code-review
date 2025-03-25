@@ -2,6 +2,7 @@ package com.jasper.sdk;
 
 import com.alibaba.fastjson.JSON;
 import com.jasper.sdk.domain.model.ApiResponse;
+import com.jasper.sdk.domain.model.ChatRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * @author: zihong@micous.com
@@ -49,20 +51,12 @@ public class AiCodeReview {
         conn.setRequestProperty("Authorization", "Bearer sk-b2ade0b7b59b49b6bf4d1bc1d8ac0425");
         conn.setDoOutput(true);
 
-        String jsonInputString = "{\n" +
-                "    \"model\": \"qwen-plus\",\n" +
-                "    \"messages\": [\n" +
-                "        {\n" +
-                "            \"role\": \"system\",\n" +
-                "            \"content\": \"You are a helpful assistant.\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"role\": \"user\",\n" +
-                "            \"content\": \"请对以下的代码进行评审。代码为:" + code + "\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-
+        ChatRequest chatRequest = new ChatRequest();
+        chatRequest.setModel("qwen-plus");
+        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content("You are a helpful assistant.").build();
+        ChatRequest.Message user = ChatRequest.Message.builder().role("user").content("请对以下的代码进行评审。代码为:" + code).build();
+        chatRequest.setMessages(Arrays.asList(system, user));
+        String jsonInputString = JSON.toJSONString(chatRequest);
         try (OutputStream os = conn.getOutputStream()) {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input);
