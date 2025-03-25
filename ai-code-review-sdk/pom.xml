@@ -52,7 +52,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -128,6 +127,7 @@
                             <include>com.fasterxml.jackson.core:jackson-core:</include>
                             <include>com.fasterxml.jackson.core:jackson-databind:</include>
                             <include>com.fasterxml.jackson.core:jackson-annotations:</include>
+                            <include>com.alibaba.fastjson:jar:</include>
                         </includes>
                     </artifactSet>
                 </configuration>
