@@ -44,15 +44,15 @@ public class AiCodeReview {
     }
 
     private static String codeReview(String code) throws Exception {
-        URL url = new URL("https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions");
+        URL url = new URL("https://api.deepseek.com/chat/completions");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestProperty("Authorization", "Bearer sk-b2ade0b7b59b49b6bf4d1bc1d8ac0425");
+        conn.setRequestProperty("Authorization", "Bearer sk-1019a9c026e245298170c04be82f029b");
         conn.setDoOutput(true);
 
         ChatRequest chatRequest = new ChatRequest();
-        chatRequest.setModel("qwen-plus");
+        chatRequest.setModel("deepseek-chat");
         ChatRequest.Message system = ChatRequest.Message.builder().role("system").content("You are a helpful assistant.").build();
         ChatRequest.Message user = ChatRequest.Message.builder().role("user").content("请对以下的代码进行评审。代码为:" + code).build();
         chatRequest.setMessages(Arrays.asList(system, user));
