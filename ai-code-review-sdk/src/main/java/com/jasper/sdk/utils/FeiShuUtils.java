@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 /**
  * 飞书工具类
@@ -17,14 +18,14 @@ import java.nio.charset.StandardCharsets;
  **/
 public class FeiShuUtils {
 
-    private final static String FeiShu_ROBOT_WEBHOOK = "https://open.FeiShu.cn/open-apis/bot/v2/hook/92d540fb-ff9f-4aea-a440-b1139d2de77a";
+    private final static String FEISHU_ROBOT_WEBHOOK = "https://open.FeiShu.cn/open-apis/bot/v2/hook/92d540fb-ff9f-4aea-a440-b1139d2de77a";
 
     /**
      * 发送飞书机器人文本消息
      * @param message 消息内容
      */
     public static void sendRobotTextMessage(String message) throws Exception {
-        URL url = new URL(FeiShu_ROBOT_WEBHOOK);
+        URL url = new URL(FEISHU_ROBOT_WEBHOOK);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -49,7 +50,7 @@ public class FeiShuUtils {
      * @param content 卡片内容
      */
     public static void sendRobotCardMessage(String title, String content) throws Exception {
-        URL url = new URL(FeiShu_ROBOT_WEBHOOK);
+        URL url = new URL(FEISHU_ROBOT_WEBHOOK);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -62,14 +63,15 @@ public class FeiShuUtils {
                                         .content(title)
                                         .tag("plain_text")
                                         .build())
+                                .template("green")
                                 .build())
-                        .elements(FeiShuMessage.CardElement.builder()
+                        .elements(Collections.singletonList(FeiShuMessage.CardElement.builder()
                                 .tag("div")
                                 .text(FeiShuMessage.CardElementText.builder()
                                         .content(content)
                                         .tag("lark_md")
                                         .build())
-                                .build())
+                                .build()))
                         .build())
                 .build();
         String jsonInputString = JSON.toJSONString(feiShuMessage);

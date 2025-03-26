@@ -4,6 +4,8 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class FeiShuMessage {
@@ -30,7 +32,7 @@ public class FeiShuMessage {
         private CardHeader header;
 
         @JSONField(name = "elements")
-        private CardElement elements;
+        private List<CardElement> elements;
     }
 
     @Data
@@ -38,6 +40,8 @@ public class FeiShuMessage {
     public static class CardHeader {
         @JSONField(name = "title")
         private CardHeaderTitle title;
+        @JSONField(name = "template")
+        private String template;
     }
 
     @Data
