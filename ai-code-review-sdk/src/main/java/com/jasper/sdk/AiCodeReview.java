@@ -6,13 +6,14 @@ import com.jasper.sdk.domain.model.ChatRequest;
 import com.jasper.sdk.utils.FeiShuUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -66,7 +67,8 @@ public class AiCodeReview {
 
         ChatRequest chatRequest = new ChatRequest();
         chatRequest.setModel("deepseek-chat");
-        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content("You are a helpful assistant.").build();
+        // 引入/docs/prompt/code-review-prompt.md
+        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content(new String(Files.readAllBytes(Paths.get("./prompt/code-review-prompt.md")), StandardCharsets.UTF_8)).build();
         ChatRequest.Message user = ChatRequest.Message.builder().role("user").content("请对以下的代码进行评审。代码为:" + code).build();
         chatRequest.setMessages(Arrays.asList(system, user));
         String jsonInputString = JSON.toJSONString(chatRequest);
