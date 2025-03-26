@@ -28,6 +28,9 @@ public class AiCodeReview {
         pb.directory(new File("."));
         // 获取 actions token
         String token = System.getenv("GITHUB_TOKEN");
+        if (token == null || token.isEmpty()) {
+            throw new RuntimeException("GITHUB_TOKEN is empty");
+        }
         try {
             Process p = pb.start();
 
@@ -121,8 +124,9 @@ public class AiCodeReview {
 
         // 将更改推送到远程仓库
         git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(token, "")).call();
+        git.close();
 
         // 返回日志文件在GitHub上的URL
-        return "https://github.com/JasperLinnn/ai-code-review-log/blob/main" + dateFolderName + "/" + logFileName;
+        return "https://github.com/JasperLinnn/ai-code-review-log/blob/main/" + dateFolderName + "/" + logFileName;
     }
 }
