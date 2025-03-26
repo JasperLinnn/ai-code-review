@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -66,9 +67,9 @@ public class AiCodeReview {
 
         ChatRequest chatRequest = new ChatRequest();
         chatRequest.setModel("deepseek-chat");
-        InputStream inputStream = AiCodeReview.class.getClassLoader().getResourceAsStream("/prompt/code-review.md");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String systemContent = reader.lines().collect(Collectors.joining("\n"));
+        // 读取 resources 下的/prompt/code-review.md文件
+        String systemContent = new BufferedReader(new InputStreamReader(Objects.requireNonNull(AiCodeReview.class.getResourceAsStream("/prompt/code-review.md"))))
+                .lines().collect(Collectors.joining("\n"));
         ChatRequest.Message system = ChatRequest.Message.builder().role("system").content(systemContent).build();
         ChatRequest.Message user = ChatRequest.Message.builder().role("user").content("请对以下的代码进行评审。代码为:" + code).build();
         chatRequest.setMessages(Arrays.asList(system, user));
