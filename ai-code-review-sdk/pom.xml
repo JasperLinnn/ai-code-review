@@ -63,6 +63,11 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>5.13.0.202109080827-r</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -129,6 +134,7 @@
                             <include>com.fasterxml.jackson.core:jackson-databind:</include>
                             <include>com.fasterxml.jackson.core:jackson-annotations:</include>
                             <include>com.alibaba.fastjson2:fastjson2:jar:</include>
+                            <include>org.eclipse.jgit:org.eclipse.jgit:</include>
                         </includes>
                     </artifactSet>
                 </configuration>
