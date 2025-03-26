@@ -12,12 +12,11 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author: zihong@micous.com
@@ -51,7 +50,7 @@ public class AiCodeReview {
             // 写入日志仓库
             String logUrl = writeLog(log, token);
             // 发送飞书消息
-            FeiShuUtils.sendRobotCardMessage("代码评审","仓库地址: " + logUrl);
+            FeiShuUtils.sendRobotCardMessage("代码评审", "仓库地址: " + logUrl);
         } catch (Exception e) {
             log.error("git diff error", e);
         }
@@ -67,7 +66,10 @@ public class AiCodeReview {
 
         ChatRequest chatRequest = new ChatRequest();
         chatRequest.setModel("deepseek-chat");
-        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content(new String(Files.readAllBytes(Paths.get("src/main/resources/prompt/code-review.md")), StandardCharsets.UTF_8)).build();
+        InputStream inputStream = AiCodeReview.class.getClassLoader().getResourceAsStream("/prompt/code-review.md");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String systemContent = reader.lines().collect(Collectors.joining("\n"));
+        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content(systemContent).build();
         ChatRequest.Message user = ChatRequest.Message.builder().role("user").content("请对以下的代码进行评审。代码为:" + code).build();
         chatRequest.setMessages(Arrays.asList(system, user));
         String jsonInputString = JSON.toJSONString(chatRequest);
@@ -92,7 +94,8 @@ public class AiCodeReview {
 
     /**
      * 写入日志仓库
-     * @param log 日志内容
+     *
+     * @param log   日志内容
      * @param token token
      */
     public static String writeLog(String log, String token) throws Exception {
@@ -118,12 +121,12 @@ public class AiCodeReview {
         File logFile = new File(dateFolder, logFileName);
 
         // 将日志内容写入文件
-        try (FileWriter fileWriter = new FileWriter(logFile)){
+        try (FileWriter fileWriter = new FileWriter(logFile)) {
             fileWriter.write(log);
         }
 
         // 将日志文件添加到Git仓库并提交
-        git.add().addFilepattern(dateFolderName+ "/" + logFileName).call();
+        git.add().addFilepattern(dateFolderName + "/" + logFileName).call();
         git.commit().setMessage("add log").call();
 
         // 将更改推送到远程仓库
