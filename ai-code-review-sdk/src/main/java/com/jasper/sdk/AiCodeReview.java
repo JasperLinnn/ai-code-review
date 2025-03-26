@@ -3,6 +3,7 @@ package com.jasper.sdk;
 import com.alibaba.fastjson2.JSON;
 import com.jasper.sdk.domain.model.ApiResponse;
 import com.jasper.sdk.domain.model.ChatRequest;
+import com.jasper.sdk.utils.FeiShuUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -46,8 +47,10 @@ public class AiCodeReview {
             // 大模型代码评审
             String log = codeReview(diffCode.toString());
             System.out.println("code review:" + log);
-
+            // 写入日志仓库
             String logUrl = writeLog(log, token);
+            // 发送飞书消息
+            FeiShuUtils.sendRobotTextMessage("仓库地址: " + logUrl);
         } catch (Exception e) {
             log.error("git diff error", e);
         }
@@ -129,4 +132,5 @@ public class AiCodeReview {
         // 返回日志文件在GitHub上的URL
         return "https://github.com/JasperLinnn/ai-code-review-log/blob/main/" + dateFolderName + "/" + logFileName;
     }
+
 }
