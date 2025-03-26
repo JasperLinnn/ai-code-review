@@ -67,8 +67,7 @@ public class AiCodeReview {
 
         ChatRequest chatRequest = new ChatRequest();
         chatRequest.setModel("deepseek-chat");
-        // 引入/docs/prompt/code-review-prompt.md
-        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content(new String(Files.readAllBytes(Paths.get("src/main/resources/docs/prompt/code-review-prompt.md")), StandardCharsets.UTF_8)).build();
+        ChatRequest.Message system = ChatRequest.Message.builder().role("system").content(new String(Files.readAllBytes(Paths.get("src/main/resources/prompt/code-review-prompt.md")), StandardCharsets.UTF_8)).build();
         ChatRequest.Message user = ChatRequest.Message.builder().role("user").content("请对以下的代码进行评审。代码为:" + code).build();
         chatRequest.setMessages(Arrays.asList(system, user));
         String jsonInputString = JSON.toJSONString(chatRequest);
