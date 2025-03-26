@@ -98,13 +98,13 @@ public class AiCodeReview {
         // 克隆日志仓库到本地，使用提供的token进行身份验证
         Git git = Git.cloneRepository()
                 .setURI(gitUrl)
-                .setDirectory(new File("logs"))
+                .setDirectory(new File("repo"))
                 .setCredentialsProvider(new UsernamePasswordCredentialsProvider(token, ""))
                 .call();
 
         // 创建根据日期命名的文件夹，如果不存在则创建
         String dateFolderName = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        File dateFolder = new File("log/" + dateFolderName);
+        File dateFolder = new File("repo/" + dateFolderName);
         if (!dateFolder.exists()) {
             dateFolder.mkdirs();
         }
