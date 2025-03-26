@@ -50,7 +50,7 @@ public class AiCodeReview {
             // 写入日志仓库
             String logUrl = writeLog(log, token);
             // 发送飞书消息
-            FeiShuUtils.sendRobotTextMessage("仓库地址: " + logUrl);
+            FeiShuUtils.sendRobotCardMessage("代码评审","仓库地址: " + logUrl);
         } catch (Exception e) {
             log.error("git diff error", e);
         }
