@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class FeiShuMessage {
+public class FeiShuMessageDTO {
     @JSONField(name = "msg_type")
     private String msgType;
 

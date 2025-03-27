@@ -1,4 +1,4 @@
-package com.jasper.sdk.domain.model;
+package com.jasper.sdk.infrastructure.ai.dto;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
@@ -6,15 +6,15 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ApiResponse {
+public class ChatResponseDTO {
     @JSONField(name = "choices")
-    private List<Choice> choices;
+    private List<ChoiceDTO> choices;
     
     @JSONField(name = "object")
     private String object;
     
     @JSONField(name = "usage")
-    private Usage usage;
+    private UsageDTO usage;
     
     @JSONField(name = "created")
     private Long created;

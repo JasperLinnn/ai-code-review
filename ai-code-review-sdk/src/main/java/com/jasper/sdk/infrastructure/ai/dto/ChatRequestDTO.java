@@ -1,13 +1,12 @@
-package com.jasper.sdk.domain.model;
+package com.jasper.sdk.infrastructure.ai.dto;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import java.util.List;
 
 @Data
-public class ChatRequest {
+public class ChatRequestDTO {
     @JSONField(name = "model")
     private String model;
     

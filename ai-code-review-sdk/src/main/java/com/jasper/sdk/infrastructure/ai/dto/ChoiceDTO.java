@@ -1,12 +1,12 @@
-package com.jasper.sdk.domain.model;
+package com.jasper.sdk.infrastructure.ai.dto;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 
 @Data
-public class Choice {
+public class ChoiceDTO {
     @JSONField(name = "message")
-    private Message message;
+    private MessageDTO message;
     
     @JSONField(name = "finish_reason")
     private String finishReason;
