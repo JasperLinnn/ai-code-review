@@ -62,7 +62,7 @@ jobs:
           AI_MODEL: ${{ secrets.AI_MODEL }}
           FEISHU_ROBOT_WEBHOOK: ${{ secrets.FEISHU_ROBOT_WEBHOOK }}
           REVIEW_LOG_URI: ${{ secrets.REVIEW_LOG_URI }}
-          COMMIT_PROJECT: ${{ secrets.REPO_NAME }}
-          COMMIT_BRANCH: ${{ secrets.BRANCH_NAME }}
-          COMMIT_AUTHOR: ${{ secrets.COMMIT_AUTHOR }}
-          COMMIT_MESSAGE: ${{ secrets.COMMIT_MESSAGE }}
+          COMMIT_PROJECT: ${{ env.REPO_NAME }}
+          COMMIT_BRANCH: ${{ env.BRANCH_NAME }}
+          COMMIT_AUTHOR: ${{ env.COMMIT_AUTHOR }}
+          COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
