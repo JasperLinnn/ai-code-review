@@ -55,10 +55,11 @@ public class AiCodeReviewService extends AbstractAiCodeReviewService {
     @Override
     protected void pushMessage(String logUrl) throws Exception {
         Map<String, String> params = new HashMap<>();
-        params.put("项目", gitCommand.getProject());
-        params.put("分支", gitCommand.getBranch());
-        params.put("成员", gitCommand.getAuthor());
+        params.put("评审日志地址", logUrl);
         params.put("提交信息", gitCommand.getMessage());
+        params.put("成员", gitCommand.getAuthor());
+        params.put("分支", gitCommand.getBranch());
+        params.put("项目", gitCommand.getProject());
         FeiShuUtils.sendRobotCardMessage("代码评审", params);
     }
 }
