@@ -93,7 +93,7 @@ public class GitCommand {
             dateFolder.mkdirs();
         }
         // 生成文件名并创建文件
-        String fileName = project + "_" + branch + "_" + author + RandomStringUtils.generateRandomString(4) + ".md";
+        String fileName = project + "_" + branch + "_" + RandomStringUtils.generateRandomString(4) + ".md";
         File file = new File(dateFolder, fileName);
         // 将推荐内容写入文件
         try (FileWriter writer = new FileWriter(file)) {
