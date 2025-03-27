@@ -14,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AiCodeReview {
     public static void main(String[] args) {
         GitCommand gitCommand = new GitCommand(
-                getEnv("CODE_TOKEN"),
                 getEnv("REVIEW_LOG_URI"),
+                getEnv("CODE_TOKEN"),
                 getEnv("COMMIT_PROJECT"),
                 getEnv("COMMIT_BRANCH"),
                 getEnv("COMMIT_AUTHOR"),
